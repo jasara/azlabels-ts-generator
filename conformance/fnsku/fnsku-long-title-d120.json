@@ -1,0 +1,19 @@
+{
+    "name": "fnsku-long-title-d120",
+    "input": {
+        "size": "7.625x2.5",
+        "density": 120,
+        "labels": [
+            {
+                "type": "fnsku",
+                "count": 1,
+                "barcode_value": "X0099LONG1",
+                "title": "Deluxe Stainless Steel Insulated Water Bottle 32oz With Straw Lid And Carry Handle",
+                "condition": "Used - Like New",
+                "msku": null,
+                "expiration_date": null
+            }
+        ]
+    },
+    "expectedZpl": "^XA^LH10,10^LS0^LT0^PW915^FWN^CF0,30^BY4^FO167,15^BCN,90,N^FDX0099LONG1^FS^CF0,40^FO370,111^FDX0099LONG1^FS^CFA,30^FO27,147^TBN,823,60^FDDeluxe Stainless Steel Insulated Water Bottle 32oz With Straw Lid And Carry Handle^FS^CF0,30^FO27,213^FDUsed - Like New^FS^XZ"
+}

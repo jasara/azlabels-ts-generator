@@ -1,0 +1,19 @@
+{
+    "name": "fnsku-default-density",
+    "input": {
+        "size": "7.625x2.5",
+        "density": null,
+        "labels": [
+            {
+                "type": "fnsku",
+                "count": 1,
+                "barcode_value": "X002339GD5",
+                "title": "Pascall Pineapple Lumps 185g",
+                "condition": "New",
+                "msku": null,
+                "expiration_date": null
+            }
+        ]
+    },
+    "expectedZpl": "^XA^LH10,10^LS0^LT0^PW610^FWN^CF0,30^BY3^FO85,10^BCN,60,N^FDX002339GD5^FS^CF0,30^FO239,74^FDX002339GD5^FS^CFA,23^FO18,98^TBN,549,50^FDPascall Pineapple Lumps 185g^FS^CF0,30^FO18,152^FDNew^FS^XZ"
+}

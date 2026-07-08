@@ -1,0 +1,28 @@
+{
+    "name": "fnsku-and-divider-batch-d80",
+    "input": {
+        "size": "7.625x2.5",
+        "density": 80,
+        "labels": [
+            {
+                "type": "divider",
+                "count": 1,
+                "barcode_value": "X0055DIVDR",
+                "title": "Category: Snacks",
+                "condition": "New",
+                "msku": null,
+                "expiration_date": null
+            },
+            {
+                "type": "fnsku",
+                "count": 1,
+                "barcode_value": "X002339GD5",
+                "title": "Pascall Pineapple Lumps 185g",
+                "condition": "New",
+                "msku": null,
+                "expiration_date": null
+            }
+        ]
+    },
+    "expectedZpl": "^XA^LH10,10^LS0^LT0^PW610^FWN^CF0,30^FO18,10^GB574,3,3,B,0^FS^CF0,60^FO185,30^FDX0055DIVDR^FS^CF0,24^FO18,80^FDCondition: New^FS^CF0,24^FO18,94^TBN,549,45^FDTitle: Category: Snacks^FS^FO18,163^GB574,3,3,B,0^FS^XZ^XA^LH10,10^LS0^LT0^PW610^FWN^CF0,30^BY3^FO85,10^BCN,60,N^FDX002339GD5^FS^CF0,30^FO239,74^FDX002339GD5^FS^CFA,23^FO18,98^TBN,549,50^FDPascall Pineapple Lumps 185g^FS^CF0,30^FO18,152^FDNew^FS^XZ"
+}

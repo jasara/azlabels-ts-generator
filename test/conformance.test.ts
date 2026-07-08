@@ -10,11 +10,17 @@ interface Fixture {
   expectedZpl: string;
 }
 
-const fixturesDir = join(dirname(fileURLToPath(import.meta.url)), "fixtures", "fnsku");
+// The corpus is committed in this repo; azlabels-api copies it in to verify itself.
+const fixturesDir = join(
+  dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "conformance",
+  "fnsku",
+);
 const files = readdirSync(fixturesDir).filter((f) => f.endsWith(".json"));
 
 describe("FNSKU ZPL conformance (vs jasara/azlabels-api)", () => {
-  it("has a synced corpus (run `npm run sync-fixtures`)", () => {
+  it("has a corpus", () => {
     expect(files.length).toBeGreaterThan(0);
   });
 

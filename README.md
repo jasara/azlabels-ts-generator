@@ -6,7 +6,7 @@ port of the ZPL logic in the private `jasara/azlabels-api` service
 **shared conformance corpus**.
 
 No shared runtime, no WASM, no network — just the same layout math reimplemented
-in TypeScript and pinned to PHP's output by golden fixtures.
+in TypeScript and pinned to azlabels-api's output by golden fixtures.
 
 ## Usage
 
@@ -34,46 +34,51 @@ The output is a single unbroken ZPL string (no newlines). The Code 128 barcode i
 rendered natively by the printer (`^BC`/`^BY`), so there is **no barcode-library
 dependency** — the package only produces command strings and layout math.
 
-## How it stays in sync with azlabels-api
+## The conformance corpus lives here
 
-`jasara/azlabels-api` is **canonical**. It owns the ZPL logic and generates the
-conformance corpus (`conformance/fnsku/*.json`, each `{name, input, expectedZpl}`).
+This repo is the **home of the shared contract**:
+[`conformance/fnsku/*.json`](./conformance/fnsku), each file
+`{ name, input, expectedZpl }`. `input` is the language-neutral label request;
+`expectedZpl` is the raw ZPL azlabels-api's PHP produces for it.
 
-This repo does **not** commit the corpus. Instead, `pretest` copies it in from a
-local checkout of azlabels-api via `scripts/sync-fixtures.mjs`:
+Both sides assert against these same files, so neither can drift silently:
 
-```
-npm test
-# -> pretest: [sync-fixtures] Synced N fixture(s) from .../azlabels-api/conformance/fnsku
-# -> vitest asserts generateFnskuZpl(input) === expectedZpl for every fixture
-```
+- **This repo** — `npm test` runs `generateFnskuZpl(input)` and asserts it equals
+  `expectedZpl` for every fixture. Self-contained; the corpus is committed here.
+- **azlabels-api** — its PHPUnit conformance test **copies this corpus in** before
+  running and asserts its PHP generator still matches.
 
-Point the sync at the source explicitly when the layout isn't auto-detected:
+### Who owns what
 
-```
-AZLABELS_CONFORMANCE_DIR=/path/to/azlabels-api/conformance/fnsku npm test
-```
+- **azlabels-api owns the ZPL logic** (it is the live production service and the
+  source of truth for what a correct label looks like). It regenerates
+  `expectedZpl`.
+- **This repo owns the corpus files** and the TypeScript port.
 
-CI ([.github/workflows/ci.yml](.github/workflows/ci.yml)) checks out azlabels-api
-(needs an `AZLABELS_API_TOKEN` secret with read access) and sets that env var.
+### Changing the ZPL logic
 
-### When the ZPL logic changes
+1. Change it in **azlabels-api** (PHP).
+2. Re-baseline the corpus, writing back into this repo's checkout:
+   ```
+   # in azlabels-api, with this repo checked out
+   ZPL_CONFORMANCE_DIR=/path/to/azlabels-ts-generator/conformance/fnsku \
+   UPDATE_ZPL_FIXTURES=1 ./vendor/bin/phpunit --filter FnskuConformanceTest
+   ```
+   The resulting JSON diff here *is* the spec change.
+3. Update this port until `npm test` is green against the new fixtures.
+4. Commit the corpus diff (+ port change) here and the logic change in azlabels-api.
 
-1. Change it in **azlabels-api** (PHP, canonical) and regenerate the corpus there:
-   `UPDATE_ZPL_FIXTURES=1 ./vendor/bin/phpunit --filter FnskuConformanceTest`.
-2. Run `npm test` here — the refreshed fixtures flow in via `pretest`.
-3. Update this port until every fixture is green again. The failing diff is the
-   spec change.
+### Adding a case
 
-Neither side can drift silently: azlabels-api's PHPUnit guard and this repo's
-Vitest suite both assert against the same fixtures.
+Add a `conformance/fnsku/<name>.json` with an `input` (and any placeholder
+`expectedZpl`), then run the azlabels-api re-baseline above to fill in
+`expectedZpl`.
 
 ## Scripts
 
 | script | purpose |
 | --- | --- |
-| `npm test` | sync corpus (pretest) + run conformance suite |
-| `npm run sync-fixtures` | copy the corpus from azlabels-api |
+| `npm test` | run the conformance suite against the committed corpus |
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm run build` | bundle ESM + CJS + types to `dist/` via tsup |
 
