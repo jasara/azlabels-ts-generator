@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout this package
+        uses: actions/checkout@v4
+        with:
+          path: package
+
+      # Canonical conformance corpus lives in the private azlabels-api repo.
+      # AZLABELS_API_TOKEN must be a PAT (or fine-grained token) with read
+      # access to jasara/azlabels-api. GITHUB_TOKEN cannot read a sibling repo.
+      - name: Checkout azlabels-api (conformance source)
+        uses: actions/checkout@v4
+        with:
+          repository: jasara/azlabels-api
+          token: ${{ secrets.AZLABELS_API_TOKEN }}
+          path: azlabels-api
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install
+        working-directory: package
+        run: npm ci
+
+      - name: Test (pretest syncs the corpus)
+        working-directory: package
+        env:
+          AZLABELS_CONFORMANCE_DIR: ${{ github.workspace }}/azlabels-api/conformance/fnsku
+        run: npm test
+
+      - name: Typecheck
+        working-directory: package
+        run: npm run typecheck
+
+      - name: Build
+        working-directory: package
+        run: npm run build

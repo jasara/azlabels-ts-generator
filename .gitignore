@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Conformance corpus is owned by jasara/azlabels-api and synced in at pretest.
+# Never commit it here — see scripts/sync-fixtures.mjs.
+/test/fixtures/fnsku/
