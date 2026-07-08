@@ -1,6 +1,6 @@
 {
   "name": "@jasara/azlabels-ts-generator",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "TypeScript ZPL label generator for Amazon FNSKU/barcode labels — a faithful port of jasara/azlabels-api's ZPL logic, kept in lockstep via a shared conformance corpus.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -17,6 +17,12 @@
     "dist"
   ],
   "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasara/azlabels-ts-generator.git"
+  },
+  "homepage": "https://github.com/jasara/azlabels-ts-generator#readme",
+  "bugs": "https://github.com/jasara/azlabels-ts-generator/issues",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
@@ -34,9 +40,8 @@
     "thermal-printer"
   ],
   "license": "UNLICENSED",
-  "private": true,
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "devDependencies": {
     "@types/node": "^22.20.1",
