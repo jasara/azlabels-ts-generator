@@ -1,11 +1,11 @@
 /**
- * Port of app/Services/Raw/Zpl/ZplManager.php from jasara/azlabels-api.
+ * ZPL layout engine for FNSKU / barcode labels.
  *
- * This is a faithful, line-for-line port. The layout math (dot dimensions, the
- * measureText font-ratio table, getFontSize buckets, textboxHeight) MUST match
- * the PHP exactly — the shared conformance corpus is the guard. Do not "improve"
- * the ratios or rounding: they are empirical fudge factors tuned against Zebra's
- * built-in font 0/A on real printers.
+ * A faithful, line-for-line port of the reference ZPL implementation. The layout
+ * math (dot dimensions, the measureText font-ratio table, getFontSize buckets,
+ * textboxHeight) is pinned to that reference by the shared conformance corpus —
+ * do not "improve" the ratios or rounding. They are empirical fudge factors
+ * tuned against Zebra's built-in font 0/A on real printers.
  */
 
 export type Density = number | null;

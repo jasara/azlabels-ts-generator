@@ -22,7 +22,7 @@ export interface FnskuZplInput {
  * Generate raw ZPL for a batch of FNSKU / divider labels.
  *
  * Returns a single unbroken ZPL string (no newlines) — byte-for-byte identical
- * to jasara/azlabels-api's `App\Services\Raw\Zpl\FNSKU::handle()`.
+ * to the reference ZPL implementation.
  */
 export function generateFnskuZpl(input: FnskuZplInput): string {
   return new FNSKU(input.labels, input.size, input.density ?? null).handle();

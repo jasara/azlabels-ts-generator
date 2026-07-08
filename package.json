@@ -1,7 +1,7 @@
 {
   "name": "@jasara/azlabels-ts-generator",
-  "version": "0.1.0",
-  "description": "TypeScript ZPL label generator for Amazon FNSKU/barcode labels — a faithful port of jasara/azlabels-api's ZPL logic, kept in lockstep via a shared conformance corpus.",
+  "version": "0.1.1",
+  "description": "TypeScript ZPL label generator for Amazon FNSKU/barcode labels, verified byte-for-byte against a reference implementation via a shared conformance corpus.",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

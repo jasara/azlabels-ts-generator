@@ -1,7 +1,8 @@
 /**
- * Port of app/Services/Raw/Zpl/FNSKU.php from jasara/azlabels-api.
+ * FNSKU / divider label ZPL builder.
  *
- * Faithful line-for-line port. Guarded by the shared conformance corpus.
+ * Faithful line-for-line port of the reference implementation, guarded by the
+ * shared conformance corpus.
  */
 
 import { ZplManager, type Density } from "./zplManager";
