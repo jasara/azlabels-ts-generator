@@ -45,8 +45,9 @@ Both sides assert against these same files, so neither can drift silently:
 
 - **This repo** — `npm test` runs `generateFnskuZpl(input)` and asserts it equals
   `expectedZpl` for every fixture. Self-contained; the corpus is committed here.
-- **azlabels-api** — its PHPUnit conformance test **copies this corpus in** before
-  running and asserts its PHP generator still matches.
+- **azlabels-api** — its PHPUnit conformance test **fetches this corpus directly**
+  from this public repo (raw over HTTP, with a local cache) and asserts its PHP
+  generator still matches.
 
 ### Who owns what
 
