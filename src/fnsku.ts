@@ -84,7 +84,7 @@ export class FNSKU {
     this.zpl.append("^FD" + fnsku + "^FS");
 
     this.zpl.currentY =
-      this.zpl.getDots(0.3) + this.topMargin + this.zpl.getDots(0.02);
+      this.zpl.getDots(0.3) + this.topMargin + this.zpl.getDots(0.0625);
 
     // FNSKU text under barcode.
     this.zpl.append("^CF0," + this.zpl.getFontSize("fnsku"));
