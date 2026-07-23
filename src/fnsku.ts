@@ -75,16 +75,18 @@ export class FNSKU {
   ): void {
     this.zpl.start();
 
+    const quietZone = this.zpl.getDots(0.0625);
+    const barcodeY = this.topMargin + quietZone; // Quiet zone above the barcode
+
     // Barcode.
     this.zpl.append(this.barcodeWidthCommand());
     this.zpl.append(
-      "^FO" + this.zpl.centerXPos(this.barcodeWidth()) + "," + this.topMargin,
+      "^FO" + this.zpl.centerXPos(this.barcodeWidth()) + "," + barcodeY,
     );
     this.zpl.append("^BCN," + this.zpl.getDots(0.3) + ",N");
     this.zpl.append("^FD" + fnsku + "^FS");
 
-    this.zpl.currentY =
-      this.zpl.getDots(0.3) + this.topMargin + this.zpl.getDots(0.0625);
+    this.zpl.currentY = barcodeY + this.zpl.getDots(0.3) + quietZone;
 
     // FNSKU text under barcode.
     this.zpl.append("^CF0," + this.zpl.getFontSize("fnsku"));
